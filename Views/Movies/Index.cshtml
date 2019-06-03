@@ -1,0 +1,101 @@
+@model IEnumerable<MoviePage.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies 2019";
+}
+    <div class="actionsbut" style="width: 2.6em; box-shadow: 5px 10px 18px #888888;">
+        <a asp-action="Create" style="color: black !important;"><b>+</b></a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    Monika
+                </th>
+                <th>
+                    Rytis
+                </th>
+                <th>
+                    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6a/New-imdb-logo.png" />
+                </th>
+                <th>
+                    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Metacritic_logo.svg" />
+                </th>
+                <th>
+                    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Rotten_Tomatoes.svg" />
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int i = 0;}
+            @foreach (var item in Model)
+            {
+
+                <tr style="background-color:@item.Color" data-toggle="collapse" data-target="#info_@i" class="accordion-toggle">
+
+                    <td class="left-curl">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td class="center-text">
+                        @Html.DisplayFor(modelItem => item.MonikaScore)
+                    </td>
+                    <td class="center-text">
+                        @Html.DisplayFor(modelItem => item.RytisScore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Imdb)<small class="votes"> (@Html.DisplayFor(modelItem => item.Votes) votes)</small>
+                    </td>
+                    <td class="center-text">
+                        @Html.DisplayFor(modelItem => item.MetaScore)
+                    </td>
+                    <td class="center-text right-curl">
+                        @Html.DisplayFor(modelItem => item.RottenTomatoes)
+                    </td>
+                    <td style="background-color: white !important; padding: 0 !important;">
+
+                        <div class="actions">
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="12" class="hiddenRow">
+                        <div class="row accordian-body collapse" id="info_@i">
+
+                            <div class="col-sm-2">
+                                <img class="poster" src="@item.Poster" />
+                            </div>
+
+                            <div class="col-sm-10">
+                                <p><b>Year: </b> <span>@item.Year</span></p>
+                                <p><b>Runtime: </b> <span>@item.Runtime </span></p>
+                                <p><b>Actors: </b> <span>@item.Actors </span></p>
+                                <p><b>Director: </b> <span>@item.Director</span></p>
+                                <p><b>Plot: </b> <span>@item.Plot</span></p>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+
+    <div id="circle">
+        <span class="number">
+            @Model.Count()
+        </span>
+    </div>
+    <div id="circle-watched">
+        <span class="number-watched">
+            @ViewData["watched"]
+        </span>
+    </div>
+
